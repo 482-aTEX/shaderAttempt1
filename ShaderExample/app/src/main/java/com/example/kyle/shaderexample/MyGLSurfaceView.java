@@ -2,7 +2,12 @@ package com.example.kyle.shaderexample;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
+import android.util.Log;
 import android.view.MotionEvent;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * Created by Kyle on 3/12/2015.
@@ -10,6 +15,8 @@ import android.view.MotionEvent;
 public class MyGLSurfaceView extends GLSurfaceView {
 
     private final MyGLRenderer mRenderer;
+    private String vertexShaderCode;
+    private String fragmentShaderCode;
 
     public MyGLSurfaceView(Context context) {
         super(context);
@@ -19,6 +26,9 @@ public class MyGLSurfaceView extends GLSurfaceView {
 
         // Set the Renderer for drawing on the GLSurfaceView
         mRenderer = new MyGLRenderer();
+        vertexShaderCode = readShader(R.raw.test_vs);
+        fragmentShaderCode = readShader(R.raw.test_fs);
+        mRenderer.setShaders(vertexShaderCode, fragmentShaderCode);
         setRenderer(mRenderer);
 
         // Render the view only when there is a change in the drawing data
@@ -65,4 +75,24 @@ public class MyGLSurfaceView extends GLSurfaceView {
         return true;
     }
 
+    public String readShader(int fd) {
+        String s = "";
+        StringBuffer vs = new StringBuffer();
+
+        try {
+            InputStream inputStream = getContext().getResources().openRawResource(fd);
+            BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+            String read = in.readLine();
+            while (read != null) {
+                vs.append(read + "\n");
+                read = in.readLine();
+            }
+            vs.deleteCharAt(vs.length() - 1);
+            s = vs.toString();
+        } catch (Exception e) {
+            Log.d("ERROR-readingShader", "Could not read shader: " + e.getLocalizedMessage());
+        }
+        Log.d("Success","Read shader");
+        return s;
+    }
 }

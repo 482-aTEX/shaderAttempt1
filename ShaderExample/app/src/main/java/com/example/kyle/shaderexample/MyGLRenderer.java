@@ -23,6 +23,9 @@ import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.util.Log;
 
+import java.io.InputStream;
+import java.io.BufferedReader;
+
 /**
  * Provides drawing instructions for a GLSurfaceView object. This class
  * must override the OpenGL ES drawing lifecycle methods:
@@ -33,6 +36,9 @@ import android.util.Log;
  * </ul>
  */
 public class MyGLRenderer implements GLSurfaceView.Renderer {
+
+    private String vertexShaderCode;
+    private String fragmentShaderCode;
 
     private static final String TAG = "MyGLRenderer";
     private Triangle mTriangle;
@@ -52,8 +58,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         // Set the background frame color
         GLES31.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-        mTriangle = new Triangle();
-        mSquare   = new Square();
+        mTriangle = new Triangle(vertexShaderCode, fragmentShaderCode);
+        mSquare   = new Square(vertexShaderCode, fragmentShaderCode);
     }
 
     @Override
@@ -161,6 +167,11 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
      */
     public void setAngle(float angle) {
         mAngle = angle;
+    }
+
+    public void setShaders(String vs, String fs) {
+        vertexShaderCode = vs;
+        fragmentShaderCode = fs;
     }
 
 }
