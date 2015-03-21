@@ -18,7 +18,7 @@ public class ShaderExample extends Activity {
     private static final String TAG = "ShaderExample";
     StringBuffer vs;
     StringBuffer fs;
-    private GLSurfaceView mainView;
+    private MyGLSurfaceView mainView;
     Renderer renderer;
 
     @Override
@@ -30,7 +30,7 @@ public class ShaderExample extends Activity {
 
         //=====
 
-        mainView = new GLSurfaceView(this);
+        mainView = new MyGLSurfaceView(this);
         setContentView(mainView);
 
         //=====
@@ -44,7 +44,7 @@ public class ShaderExample extends Activity {
 
         renderer.setShader(this.NORMALMAP_SHADER);*/
 
-        setContentView(R.layout.activity_shader_example);
+        //setContentView(R.layout.activity_shader_example);
     }
 
 

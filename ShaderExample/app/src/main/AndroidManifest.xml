@@ -10,6 +10,10 @@
         <activity
             android:name=".ShaderExample"
             android:label="@string/title_activity_shader_example" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
