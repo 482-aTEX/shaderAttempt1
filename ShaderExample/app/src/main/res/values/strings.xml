@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ShaderExample</string>
+    <string name="title_activity_shader_example">ShaderExample</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+</resources>
